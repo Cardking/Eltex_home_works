@@ -18,7 +18,8 @@ int ktlog_add(struct katalog* ktlog){
 		return -1;
 	}
 	if(ktlog->size >= ktlog->capacity){
-		ktlog->user_arr = (struct user*)realloc(ktlog->user_arr ,sizeof(struct user)*ktlog->capacity*2);
+		ktlog->user_arr = (struct user*)realloc(ktlog->user_arr\
+		 ,sizeof(struct user)*ktlog->capacity*2);
 		ktlog->capacity *= 2;
 	}
 	char number[NUM_SIZE];
@@ -41,13 +42,18 @@ int ktlog_add(struct katalog* ktlog){
 				break;
 			}
 		}
+		if(number[0] == '\0'){
+			printf("Try again\n");
+			flag = 1;
+		}
 	} while(flag);
 	do{
 		printf("Enter the name: ");
 		fgets(name, NAME_SIZE, stdin);
 		flag = 0;
 		for(i = 0; i < NAME_SIZE; ++i){
-			if(!((name[i] >= 'A' && name[i] <= 'Z') || (name[i] >= 'a' && name[i] <= 'z'))){
+			if(!((name[i] >= 'A' && name[i] <= 'Z')\
+			 || (name[i] >= 'a' && name[i] <= 'z'))){
 				if(name[i] == '\n'){
 					name[i] = '\0';
 					break;
@@ -57,8 +63,34 @@ int ktlog_add(struct katalog* ktlog){
 				break;
 			}
 		}
+		if(name[0] == '\0'){
+			printf("Try again\n");
+			flag = 1;
+		}
 	} while(flag);
 	strcpy(ktlog->user_arr[ktlog->size].name, name);
+	do{
+		printf("Enter the surname: ");
+		fgets(name, NAME_SIZE, stdin);
+		flag = 0;
+		for(i = 0; i < NAME_SIZE; ++i){
+			if(!((name[i] >= 'A' && name[i] <= 'Z')\
+			 || (name[i] >= 'a' && name[i] <= 'z'))){
+				if(name[i] == '\n'){
+					name[i] = '\0';
+					break;
+				}
+				printf("Try again\n");
+				flag = 1;
+				break;
+			}
+		}
+		if(name[0] == '\0'){
+			printf("Try again\n");
+			flag = 1;
+		}
+	} while(flag);
+	strcpy(ktlog->user_arr[ktlog->size].surname, name);
 	strcpy(ktlog->user_arr[ktlog->size].number, number);
 	ktlog->size++;
 
@@ -69,9 +101,13 @@ int ktlog_show(struct katalog* ktlog){
 		return -1;
 	}
 	int i;
-	printf("Name\tNumber\n");
+	printf("Name\tSurname\tNumber\n");
 	for(i = 0; i < ktlog->size; ++i){
-		printf("%s\t%s\n", ktlog->user_arr[i].name, ktlog->user_arr[i].number);
+		if(ktlog->user_arr[i].number[0] == '\0'){
+			continue;
+		}
+		printf("%s\t%s\t%s\n", ktlog->user_arr[i].name\
+		 , ktlog->user_arr[i].surname, ktlog->user_arr[i].number);
 	}
 	printf("\n");
 	
@@ -90,7 +126,8 @@ int ktlog_delete(struct katalog* ktlog){
 		fgets(name, NAME_SIZE, stdin);
 		flag = 0;
 		for(i = 0; i < NAME_SIZE; ++i){
-			if(!((name[i] >= 'A' && name[i] <= 'Z') || (name[i] >= 'a' && name[i] <= 'z'))){
+			if(!((name[i] >= 'A' && name[i] <= 'Z')\
+			 || (name[i] >= 'a' && name[i] <= 'z'))){
 				if(name[i] == '\n'){
 					name[i] = '\0';
 					break;
@@ -101,8 +138,14 @@ int ktlog_delete(struct katalog* ktlog){
 			}
 		}
 	} while(flag);
+	for(i = 0; i < ktlog->size; ++i){
+		if(strcmp(name, ktlog->user_arr[i].name) == 0){
+			ktlog->user_arr[i].number[0] = '\0';
+			return 0;
+		}
+	}
 
-	return 0;
+	return 1;
 }
 int ktlog_find(struct katalog* ktlog){
 	if(ktlog == NULL){
@@ -117,7 +160,8 @@ int ktlog_find(struct katalog* ktlog){
 		fgets(name, NAME_SIZE, stdin);
 		flag = 0;
 		for(i = 0; i < NAME_SIZE; ++i){
-			if(!((name[i] >= 'A' && name[i] <= 'Z') || (name[i] >= 'a' && name[i] <= 'z'))){
+			if(!((name[i] >= 'A' && name[i] <= 'Z')\
+			 || (name[i] >= 'a' && name[i] <= 'z'))){
 				if(name[i] == '\n'){
 					name[i] = '\0';
 					break;
@@ -130,7 +174,14 @@ int ktlog_find(struct katalog* ktlog){
 	} while(flag);
 	for(i = 0; i < ktlog->size; ++i){
 		if(strcmp(name, ktlog->user_arr[i].name) == 0){
-			printf("%s\t%s\n", ktlog->user_arr[i].name, ktlog->user_arr[i].number);
+			if(ktlog->user_arr[i].number[0] == '\0'){
+				continue;
+			}
+			printf("%s\t%s\t%s\n", ktlog->user_arr[i].name\
+			 , ktlog->user_arr[i].surname, ktlog->user_arr[i].number);
+			 return 0;
 		}
 	}
+	
+	return 1;
 }

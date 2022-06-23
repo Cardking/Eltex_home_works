@@ -10,6 +10,7 @@
 struct user{
 	char number[NUM_SIZE];
 	char name[NAME_SIZE];
+	char surname[NAME_SIZE];
 };
 
 struct katalog{
