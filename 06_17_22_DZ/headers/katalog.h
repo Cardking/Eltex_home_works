@@ -24,5 +24,6 @@ int ktlog_add(struct katalog* ktlog);
 int ktlog_show(struct katalog* ktlog);
 int ktlog_delete(struct katalog* ktlog);
 int ktlog_find(struct katalog* ktlog);
+int ktlog_free(struct katalog* ktlog);
 
 #endif

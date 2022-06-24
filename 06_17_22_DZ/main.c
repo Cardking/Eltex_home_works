@@ -4,13 +4,14 @@ enum options {add, find, del, show, out};
 
 int main()
 {
-	int ch;
-	char flag;
+	int ch; // Choice variable.
+	char flag; // Loop out flag.
 	struct katalog ktlog;
 	ktlog_init(&ktlog);
 	do{
 		flag = 1;
-		printf( "\nMenu\n" );
+		// Menu print:
+		printf( "\n-Menu-\n" );
 	    printf( "%d. Add;\n", add);
 	    printf( "%d. Find;\n", find);
 	    printf( "%d. Delete;\n", del);
@@ -19,7 +20,7 @@ int main()
 	   
 		printf("Enter menu option: ");
 		scanf("%d", &ch);
-		getc(stdin);
+		getc(stdin); // Output missed \n from stdin buffer.
 		switch(ch){
 			case add:
 				ktlog_add(&ktlog);
@@ -42,6 +43,8 @@ int main()
 		
 		
 	} while(flag);
+	
+	ktlog_free(&ktlog);
 	
 	return 0;
 }

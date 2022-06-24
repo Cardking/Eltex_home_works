@@ -2,6 +2,6 @@
 
 Commands:
 - make  # build;
-- ./bin/pack # structures with padding and packing;
-- ./bin/katalog # phone number directory.
+- ./bin/pack # run structures with padding and packing;
+- ./bin/katalog # run phone number directory.
 
