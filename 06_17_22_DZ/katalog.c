@@ -1,11 +1,12 @@
 #include "headers/katalog.h"
 
-int ktlog_init(struct katalog* ktlog){
-	if(ktlog == NULL){
+// Katalog initialization:
+int ktlog_init(struct katalog* ktlog){ 
+	if(ktlog == NULL){ // Empty pointer ktlog check.
 		return -1;
 	}
-	ktlog->user_arr = (struct user*)malloc(sizeof(struct user)*10);
-	if(ktlog->user_arr == NULL){
+	ktlog->user_arr = (struct user*)malloc(sizeof(struct user)*10); // Malloc memory for user array.
+	if(ktlog->user_arr == NULL){ // Empty user array check.
 		return -2;
 	}
 	ktlog->capacity = 10;
@@ -14,26 +15,27 @@ int ktlog_init(struct katalog* ktlog){
 	return 0;
 }
 int ktlog_add(struct katalog* ktlog){
-	if(ktlog == NULL){
+	if(ktlog == NULL){ // Empty pointer ktlog check.
 		return -1;
 	}
+	// User array full check.
 	if(ktlog->size >= ktlog->capacity){
 		ktlog->user_arr = (struct user*)realloc(ktlog->user_arr\
 		 ,sizeof(struct user)*ktlog->capacity*2);
 		ktlog->capacity *= 2;
 	}
-	char number[NUM_SIZE];
-	char name[NAME_SIZE];
+	char number[NUM_SIZE]; // Number buffer.
+	char name[NAME_SIZE]; // Name buffer.
 	int i;
-	char flag;
-	printf("Add:\n");
+	char flag; // Loop out flag.
+	printf("-Add-\n");
 	do{
 		printf("Enter the number: ");
 		fgets(number, NUM_SIZE, stdin);
 		flag = 0;
-		for(i = 0; i < NUM_SIZE; ++i){
+		for(i = 0; i < NUM_SIZE; ++i){ // Number validation.
 			if(!(number[i] >= '0' && number[i] <= '9')){
-				if(number[i] == '\n'){
+				if(number[i] == '\n'){ // \n change to end of string.
 					number[i] = '\0';
 					break;
 				}
@@ -42,7 +44,7 @@ int ktlog_add(struct katalog* ktlog){
 				break;
 			}
 		}
-		if(number[0] == '\0'){
+		if(number[0] == '\0'){ // Empty input check.
 			printf("Try again\n");
 			flag = 1;
 		}
@@ -51,10 +53,10 @@ int ktlog_add(struct katalog* ktlog){
 		printf("Enter the name: ");
 		fgets(name, NAME_SIZE, stdin);
 		flag = 0;
-		for(i = 0; i < NAME_SIZE; ++i){
+		for(i = 0; i < NAME_SIZE; ++i){ // Name validation.
 			if(!((name[i] >= 'A' && name[i] <= 'Z')\
 			 || (name[i] >= 'a' && name[i] <= 'z'))){
-				if(name[i] == '\n'){
+				if(name[i] == '\n'){ // \n change to end of string.
 					name[i] = '\0';
 					break;
 				}
@@ -63,7 +65,7 @@ int ktlog_add(struct katalog* ktlog){
 				break;
 			}
 		}
-		if(name[0] == '\0'){
+		if(name[0] == '\0'){ // Empty input check.
 			printf("Try again\n");
 			flag = 1;
 		}
@@ -73,10 +75,10 @@ int ktlog_add(struct katalog* ktlog){
 		printf("Enter the surname: ");
 		fgets(name, NAME_SIZE, stdin);
 		flag = 0;
-		for(i = 0; i < NAME_SIZE; ++i){
+		for(i = 0; i < NAME_SIZE; ++i){ // Surname validation.
 			if(!((name[i] >= 'A' && name[i] <= 'Z')\
 			 || (name[i] >= 'a' && name[i] <= 'z'))){
-				if(name[i] == '\n'){
+				if(name[i] == '\n'){ // \n change to end of string.
 					name[i] = '\0';
 					break;
 				}
@@ -85,7 +87,7 @@ int ktlog_add(struct katalog* ktlog){
 				break;
 			}
 		}
-		if(name[0] == '\0'){
+		if(name[0] == '\0'){ // Empty input check.
 			printf("Try again\n");
 			flag = 1;
 		}
@@ -97,38 +99,39 @@ int ktlog_add(struct katalog* ktlog){
 	return 0;
 }
 int ktlog_show(struct katalog* ktlog){
-	if(ktlog == NULL){
+	if(ktlog == NULL){ // Empty pointer ktlog check.
 		return -1;
 	}
 	int i;
 	printf("Name\tSurname\tNumber\n");
+	// Users output.
 	for(i = 0; i < ktlog->size; ++i){
-		if(ktlog->user_arr[i].number[0] == '\0'){
+		if(ktlog->user_arr[i].number[0] == '\0'){ // User deleted check.
 			continue;
 		}
 		printf("%s\t%s\t%s\n", ktlog->user_arr[i].name\
 		 , ktlog->user_arr[i].surname, ktlog->user_arr[i].number);
 	}
-	printf("\n");
+	//printf("\n");
 	
 	return 0;
 }
 int ktlog_delete(struct katalog* ktlog){
-	if(ktlog == NULL){
+	if(ktlog == NULL){ // Empty ktlog check.
 		return -1;
 	}
 	char name[NAME_SIZE];
 	int i;
-	char flag;
-	printf("Delete:\n");
+	char flag; // Loop out flag.
+	printf("-Delete-\n");
 	do{
 		printf("Enter the name: ");
 		fgets(name, NAME_SIZE, stdin);
 		flag = 0;
-		for(i = 0; i < NAME_SIZE; ++i){
+		for(i = 0; i < NAME_SIZE; ++i){ // Name validation.
 			if(!((name[i] >= 'A' && name[i] <= 'Z')\
 			 || (name[i] >= 'a' && name[i] <= 'z'))){
-				if(name[i] == '\n'){
+				if(name[i] == '\n'){ // \n change to end of string.
 					name[i] = '\0';
 					break;
 				}
@@ -138,6 +141,7 @@ int ktlog_delete(struct katalog* ktlog){
 			}
 		}
 	} while(flag);
+	// User deletion.
 	for(i = 0; i < ktlog->size; ++i){
 		if(strcmp(name, ktlog->user_arr[i].name) == 0){
 			ktlog->user_arr[i].number[0] = '\0';
@@ -148,21 +152,21 @@ int ktlog_delete(struct katalog* ktlog){
 	return 1;
 }
 int ktlog_find(struct katalog* ktlog){
-	if(ktlog == NULL){
+	if(ktlog == NULL){ // Empty pointer ktlog check.
 		return -1;
 	}
-	char name[NAME_SIZE];
+	char name[NAME_SIZE]; // Name buffer.
 	int i;
 	char flag;
-	printf("Delete:\n");
+	printf("-Find-\n");
 	do{
 		printf("Enter the name: ");
 		fgets(name, NAME_SIZE, stdin);
 		flag = 0;
-		for(i = 0; i < NAME_SIZE; ++i){
+		for(i = 0; i < NAME_SIZE; ++i){ // Name validation.
 			if(!((name[i] >= 'A' && name[i] <= 'Z')\
 			 || (name[i] >= 'a' && name[i] <= 'z'))){
-				if(name[i] == '\n'){
+				if(name[i] == '\n'){ // \n change to end of string.
 					name[i] = '\0';
 					break;
 				}
@@ -172,9 +176,11 @@ int ktlog_find(struct katalog* ktlog){
 			}
 		}
 	} while(flag);
+	printf("Name\tSurname\tNumber\n");
+	// User search.
 	for(i = 0; i < ktlog->size; ++i){
 		if(strcmp(name, ktlog->user_arr[i].name) == 0){
-			if(ktlog->user_arr[i].number[0] == '\0'){
+			if(ktlog->user_arr[i].number[0] == '\0'){ // User deleted check.
 				continue;
 			}
 			printf("%s\t%s\t%s\n", ktlog->user_arr[i].name\
@@ -182,6 +188,14 @@ int ktlog_find(struct katalog* ktlog){
 			 return 0;
 		}
 	}
+	//printf("\n");
 	
 	return 1;
+}
+
+int ktlog_free(struct katalog* ktlog){
+	if(ktlog == NULL){ // Empty pointer ktlog check.
+		return -1;
+	}
+	free(ktlog->user_arr);
 }
