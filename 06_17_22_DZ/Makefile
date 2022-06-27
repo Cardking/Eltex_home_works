@@ -24,4 +24,7 @@ katalog.o: katalog.c
 clean:
 	rm -R obj bin
 
-.PHONY: clean
+test:
+	valgrind ./bin/katalog < test.txt	
+
+.PHONY: clean test
