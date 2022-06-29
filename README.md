@@ -6,4 +6,5 @@ Home work list:
 - 06_15_22_DZ # Pointers;
 - 06_17_22_DZ # Structures;
 - 06_21_22_DZ # Stack.
-- 06_28_22_DZ # Static libraries(calculator).
+- 06_28_22_DZ # Calculator (static libraries).
+- 06_29_22_DZ # Calculator (dynamic libraries).
