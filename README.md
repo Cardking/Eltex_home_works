@@ -8,3 +8,4 @@ Home work list:
 - 06_21_22_DZ # Stack.
 - 06_28_22_DZ # Calculator (static libraries).
 - 06_29_22_DZ # Calculator (dynamic libraries).
+- 06_30_22_DZ # Calculator (with plugins).

@@ -1,0 +1,17 @@
+const char op_name[] = "Multiplication"; 
+
+int calc_mul(int first_num, int second_num){
+	return first_num * second_num;
+}
+
+
+
+
+
+
+
+
+
+
+
+
