@@ -11,3 +11,4 @@ Home work list:
 - 06_30_22_DZ  # Calculator (with plugins);
 - 07_04_22_DZ  # File IO;
 - 07_08_22_DZ  # Processes;
+- 07_12_22_DZ  # Pthreads;
